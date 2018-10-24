@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class PropriétaireFacade extends AbstractFacade<Propriétaire> implements PropriétaireFacadeLocal {
 
-    @PersistenceContext(unitName = "Project_JEEPU")
+    @PersistenceContext(unitName = "ProjetJEEPU")
     private EntityManager em;
 
     @Override

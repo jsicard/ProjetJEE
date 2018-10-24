@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class JeuxFacade extends AbstractFacade<Jeux> implements JeuxFacadeLocal {
 
-    @PersistenceContext(unitName = "Project_JEEPU")
+    @PersistenceContext(unitName = "ProjetJEEPU")
     private EntityManager em;
 
     @Override

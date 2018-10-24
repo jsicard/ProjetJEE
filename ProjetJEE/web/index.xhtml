@@ -2,12 +2,79 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <link rel="stylesheet" href="CSS.css" />
+        <title>Site de la mort qui tue</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        <p:outputPanel>Hello #{vue.nom}</p:outputPanel>
+        <h1><p:outputLabel>LOCAGAME</p:outputLabel></h1>
+        <p:toolbar style="background-color: lightblue">
+            <f:facet name="left">
+                <p:outputLabel for="Region" value=" Région: " />
+                <p:selectOneMenu id="Region" value="#{accueilClient.region}" effect="fade" filter="true" filterMatchMode="startsWith" >
+                    <f:selectItems value="#{accueilClient.listRegion}" var="listRegion" itemLabel="#{listRegion.nomRegion}" itemValue="#{listRegion.nomRegion}" />
+                </p:selectOneMenu>
+                <p:outputLabel for="Editeur" value=" Éditeur: " />
+                <p:selectOneMenu id="Editeur" value="#{accueilClient.jeu}" effect="fade" filter="true" filterMatchMode="startsWith" >
+                    <f:selectItems value="#{accueilClient.listJeux}" var="listJeux" itemLabel="#{listJeux.auteur}" itemValue="#{listJeux}" />
+                </p:selectOneMenu>
+                <p:outputLabel for="Support" value=" Support: " />
+                <p:selectOneMenu id="Support" value="#{accueilClient.jeu}">
+                    <f:selectItem itemLabel="All" itemValue="" />
+                    <f:selectItem itemLabel="PC" itemValue="PC" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Xbox 360" itemValue="Xbox 360" />
+                    <f:selectItem itemLabel="Xbox ONE" itemValue="Xbox ONE" />
+                </p:selectOneMenu>
+            </f:facet>
+            
+            <f:facet name="right">
+                <p:commandButton value="Submit" onclick="#{accueilClient.listJeux}" />
+            </f:facet>
+        </p:toolbar>
+        <p:outputLabel><h:link value="page1" outcome="LocationClient"/></p:outputLabel>
+        
+        <h:form id="form">
+            
+        <p:ring id="listeJeux" value="#{accueilClient.listJeux}" var="ring" style="width:85%; position:absolute;">
+            <p:outputPanel>
+            <p:graphicImage value="#{ring.photo}" style=" width:300px; height:400px; "/>
+            </p:outputPanel>
+        </p:ring>
+            
+        <f:facet name="right">
+            <a href="LocationClient.xhtml" target="_blank">
+            <p:commandButton value="Submit" onclick="#{accueilClient.listJeux}" />
+            </a>
+        </f:facet>
+            
+            <p:dataScroller value="#{accueilClient.listJeux}" var="scroller" chunkSize="10" >
+            <h:panelGrid columns="2" style="width:100%; background-color: lightgrey" columnClasses="image,detail">
+                <p:graphicImage value="#{scroller.photo}" style=" width:200px; height:300px;" /> 
+                <p:outputPanel>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        
+                        <h:outputText value=" Nom du jeu : " />
+                        <h:outputText value="#{scroller.nom}" style="font-weight: bold"/>
+                        
+                        <h:outputText value=" Editeur du jeu : " />
+                        <h:outputText value="#{scroller.auteur}" style="font-weight: bold"/>
+                        
+                        <h:outputText value=" Prix de location (/semaine): " />
+                        <h:outputText value="#{scroller.prix} €" style="font-weight: bold"/>
+                        
+                        <p:commandButton value="Louer" onclick="#{locationClient.jeu}"  />
+                        
+                    </h:panelGrid>
+                </p:outputPanel>
+            </h:panelGrid>
+        </p:dataScroller>
+            
+        </h:form>
     </h:body>
+    
 </html>
 

@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Jeux.findAll", query = "SELECT j FROM Jeux j")
+    /*, @NamedQuery(name = "Jeux.findAllAuteur", query = "SELECT DISTINCT j.auteur FROM Jeux j")*/
     , @NamedQuery(name = "Jeux.findByIdJeux", query = "SELECT j FROM Jeux j WHERE j.idJeux = :idJeux")
     , @NamedQuery(name = "Jeux.findByNom", query = "SELECT j FROM Jeux j WHERE j.nom = :nom")
     , @NamedQuery(name = "Jeux.findByAuteur", query = "SELECT j FROM Jeux j WHERE j.auteur = :auteur")
@@ -42,6 +43,13 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Jeux.findByNote", query = "SELECT j FROM Jeux j WHERE j.note = :note")
     , @NamedQuery(name = "Jeux.findBySupport", query = "SELECT j FROM Jeux j WHERE j.support = :support")})
 public class Jeux implements Serializable {
+
+    @Column(name = "Note")
+    private Integer note;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "photo")
+    private String photo;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,10 +77,6 @@ public class Jeux implements Serializable {
     @NotNull
     @Column(name = "Prix")
     private int prix;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Note")
-    private int note;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -148,13 +152,6 @@ public class Jeux implements Serializable {
         this.prix = prix;
     }
 
-    public int getNote() {
-        return note;
-    }
-
-    public void setNote(int note) {
-        this.note = note;
-    }
 
     public String getCommentaire() {
         return commentaire;
@@ -212,6 +209,22 @@ public class Jeux implements Serializable {
     @Override
     public String toString() {
         return "entity.Jeux[ idJeux=" + idJeux + " ]";
+    }
+
+    public Integer getNote() {
+        return note;
+    }
+
+    public void setNote(Integer note) {
+        this.note = note;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
     
 }

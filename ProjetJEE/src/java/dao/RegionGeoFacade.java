@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class RegionGeoFacade extends AbstractFacade<RegionGeo> implements RegionGeoFacadeLocal {
 
-    @PersistenceContext(unitName = "Project_JEEPU")
+    @PersistenceContext(unitName = "ProjetJEEPU")
     private EntityManager em;
 
     @Override
